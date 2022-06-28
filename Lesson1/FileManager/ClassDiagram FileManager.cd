@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lesson9.AppUserSettings">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <AssociationLine Name="ActiveTextColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.662" Y="0.248" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="GridColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.953" Y="0.82" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NormalTextColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.487" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="SellectedColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.508" Y="0.766" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="StaticTextColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.523" Y="0.568" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CIAEgIAAAAAAAAAEAAAAAAEAAAAAAIAAAAAAAAAgAAA=</HashCode>
+      <FileName>AppUserSettings.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ActiveTextColors" />
+      <Field Name="GridColors" />
+      <Field Name="NormalTextColors" />
+      <Field Name="SellectedColors" />
+      <Field Name="StaticTextColors" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Lesson9.FileManagerWindow">
+    <Position X="11" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAUgACAABAIAACAAAAAAAEAAAAAAAAQAAUIAgAAAAAA=</HashCode>
+      <FileName>FileManagerWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lesson9.Program">
+    <Position X="2" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>ALRAwEBAAACAAAAAAABAABAAABEAABAAIMAKBQA0AAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="userSettings" />
+      <Field Name="Tree" />
+      <Field Name="fileManagerWindow1" />
+      <Field Name="fileManagerWindow2" />
+      <Field Name="Window2" />
+      <Field Name="messageWindow" />
+      <Field Name="Window1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyUtils.FileSystemOperations.FileSystemOperations">
+    <Position X="14.25" Y="0.75" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Lesson9.MessageWindow">
+    <Position X="3" Y="8" Width="2.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="GridColors" />
+      <Property Name="NormalTextColors" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyUtils.StringInput">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="MyUtils.Cell">
+    <Position X="17.25" Y="8.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="MyUtils.Cell.EHorizAlign">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="MyUtils.Cell.EVertAlign">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="MyUtils.Column">
+    <Position X="15" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="MyUtils.Row">
+    <Position X="15" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Cells" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyUtils.Table">
+    <Position X="11.25" Y="7" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="MyUtils.Table.TableEventArgs_KeyPress">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="ActiveTextColors" Type="MyUtils.TextColors">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.068" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="ActiveTextColors" />
+      <Property Name="GridColors" />
+      <Property Name="StaticTextColors" />
+      <Property Name="SellectedColors" />
+      <Property Name="NormalTextColors" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Rows" />
+      <Property Name="Columns" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyUtils.TextColors">
+    <Position X="7" Y="7.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
