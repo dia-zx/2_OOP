@@ -76,14 +76,25 @@ public class BankAccount
         /// <summary>
         /// Частный счёт
         /// </summary>
-        Private,            
+        Private,
     }
     const int NumberStart = 1000555;
 
-    private static int _NumberUnical = NumberStart;
-    private int _Number;
-    private decimal _Balance;
-    private BankAccountType _Type;
+    /// <summary>
+    /// Переводит запрошенную сумму со счета [source]
+    /// </summary>
+    /// <param name="source">счет источник</param>
+    /// <param name="money"> сумма перевода</param>
+    /// <returns>true - операция успешна</returns>
+    public bool Transfer(BankAccount source, decimal money)
+    {
+        if (source == null) return false;
+        if (!source.GetMoney(money)) return false;
+        _Balance += money;
+        return true;
+    }
+
+
 
     /// <summary>
     /// конструктор по умолчанию
@@ -125,8 +136,9 @@ public class BankAccount
     /// </summary>
     /// <param name="money"></param>
     /// <returns>true - если все OK</returns>
-    public bool PutMoney(decimal money) { 
-        if(money < 0) return false;
+    public bool PutMoney(decimal money)
+    {
+        if (money < 0) return false;
         _Balance += money;
         return true;
     }
@@ -138,20 +150,26 @@ public class BankAccount
     /// <returns>true - если все OK</returns>
     public bool GetMoney(decimal money)
     {
-        if(money < 0) return false;
-        if(money > _Balance) return false;
+        if (money < 0) return false;
+        if (money > _Balance) return false;
         _Balance -= money;
         return true;
     }
-
-    /// <summary>
-    /// создает уникальный номер
-    /// </summary>
-    private void SetNumber() => _Number = _NumberUnical++;
 
 
     public override string ToString()
     {
         return $"Номер счета: {_Number}\t\tБаланс: {_Balance}\t\tТип: {_Type}";
     }
+
+
+    private static int _NumberUnical = NumberStart;
+    private int _Number;
+    private decimal _Balance;
+    private BankAccountType _Type;
+
+    /// <summary>
+    /// создает уникальный номер
+    /// </summary>
+    private void SetNumber() => _Number = _NumberUnical++;
 }
