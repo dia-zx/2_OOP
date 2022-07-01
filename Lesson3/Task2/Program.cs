@@ -5,7 +5,7 @@
  */
 string TestString = "This is test string";
 
-Console.WriteLine($"Тестируем строку \"{TestString}\"");
+Console.WriteLine($"Тестируем строку \"{TestString}\"\n\n");
 Console.WriteLine($"Метод ReverseString1: {ReverseString1(TestString)}");
 Console.WriteLine($"Метод ReverseString2: {ReverseString2(TestString)}");
 
@@ -25,6 +25,8 @@ for (int i = 0; i < COUNT; i++)
 stopwatch.Stop();
 Console.WriteLine($"Вариант (ReverseString2) длительность, мс: {stopwatch.ElapsedMilliseconds}");
 #endregion
+Console.WriteLine("\n\nНажмите любую клавишу для выхода");
+Console.ReadKey();
 
 /// <summary>
 /// Вариант 1 реверс строки через преобразование в массив символов
