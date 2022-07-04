@@ -99,11 +99,9 @@ public class BankAccount
     /// <summary>
     /// конструктор по умолчанию
     /// </summary>
-    public BankAccount()
+    public BankAccount() : this(0, BankAccountType.Savings)
     {
-        SetNumber();
-        _Balance = 0;
-        _Type = BankAccountType.Savings;
+        
     }
 
     public BankAccount(decimal Balance)
