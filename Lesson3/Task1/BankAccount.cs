@@ -165,5 +165,5 @@ public class BankAccount
     /// <summary>
     /// создает уникальный номер
     /// </summary>
-    private void SetNumber() => _Number = _NumberUnical++;
+    private static int CreateNumber() =>_NumberUnical++;
 }
