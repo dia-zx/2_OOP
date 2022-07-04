@@ -104,11 +104,9 @@ public class BankAccount
         
     }
 
-    public BankAccount(decimal Balance)
+    public BankAccount(decimal Balance) : this(Balance, BankAccountType.Savings)
     {
-        SetNumber();
-        _Balance = Balance;
-        _Type = BankAccountType.Savings;
+        
     }
 
     public BankAccount(BankAccountType type)
