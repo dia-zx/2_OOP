@@ -150,7 +150,7 @@ public class BankAccount
     /// <returns>true - если все OK</returns>
     public bool GetMoney(decimal money)
     {
-        if (money < 0) return false;
+        if (money < 0) throw new ArgumentOutOfRangeException(nameof(money), money, "Количество денег должно быть больше 0");
         if (money > _Balance) return false;
         _Balance -= money;
         return true;
