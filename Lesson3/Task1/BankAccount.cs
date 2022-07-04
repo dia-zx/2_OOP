@@ -88,7 +88,7 @@ public class BankAccount
     /// <returns>true - операция успешна</returns>
     public bool Transfer(BankAccount source, decimal money)
     {
-        if (source == null) return false;
+        if (source == null) throw new ArgumentNullException(nameof(source));
         if (!source.GetMoney(money)) return false;
         _Balance += money;
         return true;
