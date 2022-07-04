@@ -109,11 +109,9 @@ public class BankAccount
         
     }
 
-    public BankAccount(BankAccountType type)
+    public BankAccount(BankAccountType type) : this(0, type)
     {
-        SetNumber();
-        _Balance = 0;
-        _Type = type;
+        
     }
 
     public BankAccount(decimal balance, BankAccountType type)
