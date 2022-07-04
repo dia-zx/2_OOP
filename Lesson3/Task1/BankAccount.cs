@@ -116,7 +116,7 @@ public class BankAccount
 
     public BankAccount(decimal balance, BankAccountType type)
     {
-        SetNumber();
+        _Number = CreateNumber();
         _Balance = balance;
         _Type = type;
     }
