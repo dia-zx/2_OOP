@@ -13,5 +13,54 @@
  * изменения цвета.
  */
 
+
 Console.WriteLine("\nНажмите любую клавишу для выхода.");
 Console.ReadKey();
+
+public class Point : Figure
+{
+    protected int _x = 0;
+    protected int _y = 0;
+    public int X { get => _x; set => SetPosition(X, _y); }
+    public int Y { get => _y; set => SetPosition(_x, Y); }
+
+    public override void MooveX(int value) => SetPosition(value, _y);
+    public override void MooveY(int value) => SetPosition(_x, value);
+
+
+    public void SetPosition(int X, int Y)
+    {
+        if (X == _x && Y == _y) return;
+        _x = X; _y = Y;
+        DoPositionChange();// вызов события..
+    }
+
+    public override void Draw() => Console.WriteLine("Point: " + ToString());
+    public override string ToString() => $"X: {_x};\tY: {_y};\t" + base.ToString();
+    public Point() { }
+    public Point(int X, int Y) : base(X, Y) { }
+    public Point(int X, int Y, uint Colour, bool Visible) : base(X, Y, Colour, Visible) { }
+
+    public event EventHandler OnPositionChange;
+
+    public void DoPositionChange() => OnPositionChange?.Invoke(this, EventArgs.Empty);
+}
+
+public class Circle : Point
+{
+    private int _r;
+    public int R
+    {
+        get => _r;
+        set
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException("Радиус < 0!");
+            _r = value;
+        }
+    }
+    public override void Draw() => Console.WriteLine(ToString());
+    public override string ToString() => "Circle: " + Figure.ToString() + "";
+    public Circle() { }
+    public Circle(int X, int Y, int R) : base(X, Y) { }
+    public Circle(int X, int Y, uint Colour, bool Visible) : base(X, Y, Colour, Visible) { }
+}
