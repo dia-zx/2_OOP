@@ -55,7 +55,8 @@ public class House
     /// </summary>
     public double Height
     {
-        get => _Height; set
+        get => _Height;
+        set
         {
             if (value < 0) throw new ArgumentOutOfRangeException("Height");
             _Height = value;
@@ -66,7 +67,8 @@ public class House
     /// </summary>
     public int FloorsCount
     {
-        get => _FloorsCount; set
+        get => _FloorsCount;
+        set
         {
             if (value < 0) throw new ArgumentOutOfRangeException("FloorCount");
             _FloorsCount = value;
@@ -77,7 +79,8 @@ public class House
     /// </summary>
     public int FlatsCount
     {
-        get => _FlatsCount; set
+        get => _FlatsCount;
+        set
         {
             if (value < 0) throw new ArgumentOutOfRangeException("FlatCount");
             _FlatsCount = value;
@@ -88,7 +91,8 @@ public class House
     /// </summary>
     public int EntrancesCount
     {
-        get => _EntrancesCount; set
+        get => _EntrancesCount;
+        set
         {
             if (value < 0) throw new ArgumentOutOfRangeException("EntranceCount");
             _EntrancesCount = value;

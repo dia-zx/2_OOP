@@ -57,7 +57,8 @@ namespace Task3_Library
         /// </summary>
         public double Height
         {
-            get => _Height; set
+            get => _Height;
+            set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException("Height");
                 _Height = value;
@@ -68,7 +69,8 @@ namespace Task3_Library
         /// </summary>
         public int FloorsCount
         {
-            get => _FloorsCount; set
+            get => _FloorsCount;
+            set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException("FloorCount");
                 _FloorsCount = value;
@@ -79,7 +81,8 @@ namespace Task3_Library
         /// </summary>
         public int FlatsCount
         {
-            get => _FlatsCount; set
+            get => _FlatsCount;
+            set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException("FlatCount");
                 _FlatsCount = value;
@@ -90,7 +93,8 @@ namespace Task3_Library
         /// </summary>
         public int EntrancesCount
         {
-            get => _EntrancesCount; set
+            get => _EntrancesCount;
+            set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException("EntranceCount");
                 _EntrancesCount = value;

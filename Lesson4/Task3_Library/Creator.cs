@@ -45,7 +45,7 @@ namespace Task3_Library
         /// Возвращает число домов в хеш-таблице
         /// </summary>
         /// <returns></returns>
-        public static int GetCount() => houses.Count;
+        public static int Count {get => houses.Count;}        
         /// <summary>
         /// Очистка хеш-таблицы с домами
         /// </summary>

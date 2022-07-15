@@ -18,7 +18,7 @@ Console.WriteLine($"Создан дом: {h}");
 h = Creator.CreateBuild(20, 10, 160, 4);
 Console.WriteLine($"Создан дом: {h}");
 
-Console.WriteLine($"\nЧисло домов: {Creator.GetCount()}");
+Console.WriteLine($"\nЧисло домов: {Creator.Count}");
 
 Console.WriteLine("\nСписок домов через Enumerate:");
 var houses = new Creator();// создадим объект Creator для работы с коллекцией..
