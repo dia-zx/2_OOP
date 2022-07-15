@@ -42,7 +42,7 @@ public class Creator : IEnumerable<House>
     /// Возвращает число домов в хеш-таблице
     /// </summary>
     /// <returns></returns>
-    public static int GetCount() => houses.Count;
+    public static int Count => houses.Count;
     /// <summary>
     /// Очистка хеш-таблицы с домами
     /// </summary>
