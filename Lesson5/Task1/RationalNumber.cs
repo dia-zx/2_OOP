@@ -61,8 +61,8 @@ public readonly struct RationalNumber : ICloneable
     /// </summary>
     /// <param name="num"></param>
     /// <returns></returns>
-    public static double ToDouble(RationalNumber num) => (double)num._numerator / (double)num._denominator;
-    public double ToDouble() => (double)_numerator / (double)_denominator;
+    public static double ToDouble(RationalNumber num) => num.ToDouble();
+    public double ToDouble() => (double)_numerator / _denominator;
 
     public static bool operator ==(RationalNumber num1, RationalNumber num2) =>
         (num1._numerator == num2._numerator) && (num1._denominator == num2._denominator);
