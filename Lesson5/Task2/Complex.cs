@@ -44,8 +44,8 @@ public class Complex : ICloneable
     /// <param name="value"></param>
     public static explicit operator Complex(double value) => new(value, 0);
 
-    public static bool operator ==(Complex x, Complex y) => x.Equals(y);
-    public static bool operator !=(Complex x, Complex y) => !(x.Equals(y));
+    public static bool operator ==(Complex x, Complex y) => Equals(x, y);
+    public static bool operator !=(Complex x, Complex y) => !(x==y);
 
     public override bool Equals(object? obj)
     {

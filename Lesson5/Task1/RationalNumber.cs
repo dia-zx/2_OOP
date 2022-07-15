@@ -1,4 +1,4 @@
-public readonly struct RationalNumber : ICloneable
+public struct RationalNumber : ICloneable
 {
     /// <summary>
     /// числитель
