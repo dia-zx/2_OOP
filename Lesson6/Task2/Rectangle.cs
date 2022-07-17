@@ -54,7 +54,6 @@ public class Rectangle : Point
     }
 
     public override void Draw() => Console.WriteLine("Rectangle: " + ToString());
-
     public override string ToString() => $"Width: {_width};\tHeight: {_height};\t {base.ToString()}";
     public override double Area() => _height * _width;
 
@@ -80,6 +79,7 @@ public class Rectangle : Point
     /// событие "изменение ширины объекта"
     /// </summary>
     public event EventHandler OnWidthChange;
+
     /// <summary>
     /// метод для вызова события OnHeightChange - изменение высоты объекта
     /// </summary>
