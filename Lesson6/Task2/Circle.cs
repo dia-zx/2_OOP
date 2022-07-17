@@ -13,41 +13,48 @@
  * изменения цвета.
  */
 
-Point point = new(X: 10, Y: 10, Colour: 55, Visible: true);
-Circle circle = new(X: 2, Y: 2, R: 5, Colour: 33, Visible: false);
-Rectangle rectangle = new(X: 2, Y: 2, Width: 6, Height: 8, Colour: 33, Visible: false);
 
-point.OnPositionChange += OnPositionChange;
-circle.OnPositionChange += OnPositionChange;
-rectangle.OnPositionChange += OnPositionChange;
-
-point.Draw();
-Console.WriteLine($"S= {point.Area()}");
-point.MoveX(-1);
-point.MoveY(1);
-point.Draw();
-Console.WriteLine();
-
-
-circle.Draw();
-Console.WriteLine($"S= {circle.Area()}");
-circle.MoveX(-1);
-circle.MoveY(1);
-circle.Draw();
-Console.WriteLine();
-
-rectangle.Draw();
-Console.WriteLine($"S= {rectangle.Area()}");
-rectangle.MoveX(-1);
-rectangle.MoveY(1);
-rectangle.Draw();
-Console.WriteLine();
-
-Console.WriteLine("\nНажмите любую клавишу для выхода.");
-Console.ReadKey();
-
-static void OnPositionChange(object? sender, EventArgs e)
+/// <summary>
+/// Окружность
+/// </summary>
+public class Circle : Point
 {
-    if (sender is not Figure) return;
-    Console.WriteLine($"****** событие PositionChange ({sender.GetType()}) ***** ");
+    /// <summary>
+    /// радиус
+    /// </summary>
+    private int _r;
+    /// <summary>
+    /// радиус
+    /// </summary>
+    public int R
+    {
+        get => _r;
+        set
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException("Радиус < 0!");
+            if(_r == value) return;
+            _r = value;
+            DoRadiusChange();
+        }
+    }
+    public override void Draw() => Console.WriteLine("Circle: " + ToString());
+
+    public override string ToString() => $"R: {_r};\t{base.ToString()}";
+    public override double Area() => Math.PI * _r * _r;
+
+    #region конструкторы
+    public Circle() { }
+    public Circle(int X, int Y, int R) : base(X, Y) => this.R = R;
+    public Circle(int X, int Y, int R, uint Colour, bool Visible) : base(X, Y, Colour, Visible) => this.R = R;
+    #endregion
+
+    /// <summary>
+    /// событие "изменение радиуса объекта"
+    /// </summary>
+    public event EventHandler OnRadiusChange;
+    /// <summary>
+    /// метод для вызова события OnRadiusChange - изменение радиуса
+    /// </summary>
+    public void DoRadiusChange() => OnRadiusChange?.Invoke(this, EventArgs.Empty);   
+
 }

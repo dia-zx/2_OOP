@@ -16,9 +16,17 @@
 
 public abstract class Figure
 {
+    /// <summary>
+    /// цвет
+    /// </summary>
     protected uint _colour = 0;
+    /// <summary>
+    /// сестояние (видимый/невидимый) true - видимый
+    /// </summary>
     protected bool _visible = true;
-
+    /// <summary>
+    /// сестояние (видимый/невидимый) true - видимый
+    /// </summary>
     public bool Visible
     {
         get => _visible;
@@ -27,6 +35,9 @@ public abstract class Figure
             if (value != _visible) { _visible = value; DoVisibleChange(); }
         }
     }
+    /// <summary>
+    /// цвет
+    /// </summary>
     public uint Colour
     {
         get => _colour;
@@ -35,31 +46,43 @@ public abstract class Figure
             if (value != _colour) { _colour = value; DoColourChange(); }
         }
     }
-    public abstract void MooveX(int value);
-    public abstract void MooveY(int value);
-    public abstract void Draw();
 
+    /// <summary>
+    /// перемещение по горизонтали
+    /// </summary>
+    /// <param name="value">величина перемещения</param>
+    public abstract void MoveX(int value);
+    /// <summary>
+    /// перемещение по вертикали
+    /// </summary>
+    /// <param name="value">величина перемещения</param>
+    public abstract void MoveY(int value);
+    /// <summary>
+    /// вывод состояния полей объекта
+    /// </summary>
+    public abstract void Draw();
+    /// <summary>
+    /// площадь фигуры
+    /// </summary>
+    /// <returns></returns>
+    public abstract double Area();
     public override string ToString() => $"Colour: {_colour}\tVisible: {_visible}";
 
+    /// <summary>
+    /// метод для вызова события OnVisibleChanged - изменение свойства видимости
+    /// </summary>
     public void DoVisibleChange() => OnVisibleChanged?.Invoke(this, EventArgs.Empty);
+    /// <summary>
+    /// метод для вызова события OnColourChanged - изменение цвета
+    /// </summary>
     public void DoColourChange() => OnColourChanged?.Invoke(this, EventArgs.Empty);
 
+    /// <summary>
+    /// событие "изменение видимости объекта"
+    /// </summary>
     public event EventHandler OnVisibleChanged;
+    /// <summary>
+    /// событие "изменение цвета объекта"
+    /// </summary>
     public event EventHandler OnColourChanged;
-
-    #region конструкторы
-    protected Figure() { }
-    protected Figure(int X, int Y, uint Colour, bool Visible)
-    {
-        _x = X;
-        _y = Y;
-        _colour = Colour;
-        _visible = Visible;
-    }
-    protected Figure(int X, int Y)
-    {
-        _x = X;
-        _y = Y;
-    }
-    #endregion
 }
