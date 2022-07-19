@@ -8,24 +8,22 @@
  * расположенную в алфавите на i-й позиции с конца алфавита. (Например, буква В заменяется на букву Э.
  * Написать программу, демонстрирующую функционирование классов).
  */
-ACoder coder = new ACoder();
+/// <summary>
+/// Интерфейс для шифрования текста
+/// </summary>
+interface ICoder
+{
+    /// <summary>
+    /// Метод кодирования текста
+    /// </summary>
+    /// <param name="input">входная информация для кодировки</param>
+    /// <returns>закодированная строка</returns>
+    string Encode(IEnumerable<char> input);
 
-string OriginalString = "АБаб Hello, World! ABCD  ZXC abcd  zxc АБВ ЭЮЯ  абв эюя";
-
-Console.WriteLine("*********** ACoder *************");
-Console.WriteLine("Исходная строка: " + OriginalString);
-string EncodeString = coder.Encode(OriginalString);
-Console.WriteLine("Закодированная строка: " + EncodeString);
-string DecodeString = coder.Decode(EncodeString);
-Console.WriteLine("Раскодированная строка: " + DecodeString);
-
-BCoder bCoder = new BCoder();
-Console.WriteLine("\n*********** BCoder *************");
-Console.WriteLine("Исходная строка: " + OriginalString);
-EncodeString = bCoder.Encode(OriginalString);
-Console.WriteLine("Закодированная строка: " + EncodeString);
-DecodeString = bCoder.Decode(EncodeString);
-Console.WriteLine("Раскодированная строка: " + DecodeString);
-
-Console.WriteLine("\nНажмите любую клавишу для выхода.");
-Console.ReadKey();
+    /// <summary>
+    /// Метод раскодирования текста
+    /// </summary>
+    /// <param name="input">закодированный текст</param>
+    /// <returns>раскодированная строка текста</returns>
+    string Decode(IEnumerable<char> input);
+}

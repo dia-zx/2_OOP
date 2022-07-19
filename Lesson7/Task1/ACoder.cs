@@ -8,24 +8,32 @@
  * расположенную в алфавите на i-й позиции с конца алфавита. (Например, буква В заменяется на букву Э.
  * Написать программу, демонстрирующую функционирование классов).
  */
-ACoder coder = new ACoder();
+using System.Text;
 
-string OriginalString = "АБаб Hello, World! ABCD  ZXC abcd  zxc АБВ ЭЮЯ  абв эюя";
+/// <summary>
+/// Класс шифрует строку посредством сдвига каждого символа на одну «алфавитную» позицию выше 
+/// </summary>
+public class ACoder : ICoder
+{
+    public string Encode(IEnumerable<char> input)
+    {
+        if (input is null) throw new ArgumentNullException(nameof(input));
+        StringBuilder stringBuilder = new();
+        foreach (var item in input)
+        {
+            stringBuilder.Append((char)(item + 1));
+        }
+        return stringBuilder.ToString();
+    }
 
-Console.WriteLine("*********** ACoder *************");
-Console.WriteLine("Исходная строка: " + OriginalString);
-string EncodeString = coder.Encode(OriginalString);
-Console.WriteLine("Закодированная строка: " + EncodeString);
-string DecodeString = coder.Decode(EncodeString);
-Console.WriteLine("Раскодированная строка: " + DecodeString);
-
-BCoder bCoder = new BCoder();
-Console.WriteLine("\n*********** BCoder *************");
-Console.WriteLine("Исходная строка: " + OriginalString);
-EncodeString = bCoder.Encode(OriginalString);
-Console.WriteLine("Закодированная строка: " + EncodeString);
-DecodeString = bCoder.Decode(EncodeString);
-Console.WriteLine("Раскодированная строка: " + DecodeString);
-
-Console.WriteLine("\nНажмите любую клавишу для выхода.");
-Console.ReadKey();
+    public string Decode(IEnumerable<char> input)
+    {
+        if (input is null) throw new ArgumentNullException(nameof(input));
+        StringBuilder stringBuilder = new();
+        foreach (var item in input)
+        {
+            stringBuilder.Append((char)(item - 1));
+        }
+        return stringBuilder.ToString();
+    }
+}
