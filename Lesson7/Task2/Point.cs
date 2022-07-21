@@ -18,46 +18,13 @@
 /// </summary>
 public class Point : Figure
 {
-    protected int _x = 0;
-    protected int _y = 0;
-    public int X { get => _x; set => SetPosition(value, _y); }
-    public int Y { get => _y; set => SetPosition(_x, value); }
-
-    public override void MoveX(int value) => SetPosition(value + _x, _y);
-    public override void MoveY(int value) => SetPosition(_x, value + _y);
-
-
-    public void SetPosition(int X, int Y)
-    {
-        if (X == _x && Y == _y) return;
-        _x = X; _y = Y;
-        DoPositionChange();// вызов события..
-    }
-
     public override void Draw() => Console.WriteLine("Point: " + ToString());
     public override double Area() => 0;
 
-    public override string ToString() => $"X: {_x};\tY: {_y};\t" + base.ToString();
-
     #region конструкторы
     public Point() { }
-    public Point(int X, int Y)
-    {
-        SetPosition(X, Y);
-    }
-    public Point(int X, int Y, uint Colour, bool Visible) : this(X, Y)
-    {
-        this.Visible = Visible;
-        this.Colour = Colour;
-    }
+    public Point(int X, int Y) : base(X, Y) { }
+    public Point(int X, int Y, uint Color, bool Visible) : base(X, Y, Color, Visible) { }
     #endregion
 
-    /// <summary>
-    /// событие "изменение положения объекта"
-    /// </summary>
-    public event EventHandler OnPositionChange;
-    /// <summary>
-    /// метод для вызова события OnPositionChange - изменение положения
-    /// </summary>
-    public void DoPositionChange() => OnPositionChange?.Invoke(this, EventArgs.Empty);
 }

@@ -64,7 +64,7 @@ public class Rectangle : Point
         this.Width = Width;
         this.Height = Height;
     }
-    public Rectangle(int X, int Y, int Width, int Height, uint Colour, bool Visible) : base(X, Y, Colour, Visible)
+    public Rectangle(int X, int Y, int Width, int Height, uint Color, bool Visible) : base(X, Y, Color, Visible)
     {
         this.Width = Width;
         this.Height = Height;

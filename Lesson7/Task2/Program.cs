@@ -13,9 +13,9 @@
  * какие методы и поля будут в абстрактном классе, какие методы будут виртуальными, какие перегруженными.
  */
 
-Point point = new(X: 10, Y: 10, Colour: 55, Visible: true);
-Circle circle = new(X: 2, Y: 2, R: 5, Colour: 33, Visible: false);
-Rectangle rectangle = new(X: 2, Y: 2, Width: 6, Height: 8, Colour: 33, Visible: false);
+Point point = new(X: 10, Y: 10, Color: 55, Visible: true);
+Circle circle = new(X: 2, Y: 2, R: 5, Color: 33, Visible: false);
+Rectangle rectangle = new(X: 2, Y: 2, Width: 6, Height: 8, Color: 33, Visible: false);
 
 point.OnPositionChange += OnPositionChange;
 circle.OnPositionChange += OnPositionChange;
@@ -48,6 +48,6 @@ Console.ReadKey();
 
 static void OnPositionChange(object? sender, EventArgs e)
 {
-    if (sender is not Figure) return;
+    if (sender is not IFigure) return;
     Console.WriteLine($"****** событие PositionChange ({sender.GetType()}) ***** ");
 }

@@ -45,7 +45,7 @@ public class Circle : Point
     #region конструкторы
     public Circle() { }
     public Circle(int X, int Y, int R) : base(X, Y) => this.R = R;
-    public Circle(int X, int Y, int R, uint Colour, bool Visible) : base(X, Y, Colour, Visible) => this.R = R;
+    public Circle(int X, int Y, int R, uint Color, bool Visible) : base(X, Y, Color, Visible) => this.R = R;
     #endregion
 
     /// <summary>

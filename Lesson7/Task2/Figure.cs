@@ -14,20 +14,39 @@
  */
 
 
-public abstract class Figure
+public abstract class Figure : IFigure
 {
+    #region конструкторы
+    protected Figure() { }
+    protected Figure(int X, int Y) => SetPosition(X, Y);
+    protected Figure(int X, int Y, uint Color, bool Visible) : this(X, Y)
+    {
+        _color = Color;
+        _visible = Visible;
+    } 
+    #endregion
+
+    /// <summary>
+    /// координата по горизонтали
+    /// </summary>
+    protected int _x = 0;
+    /// <summary>
+    /// координата по вертикали
+    /// </summary>
+    protected int _y = 0;
     /// <summary>
     /// цвет
     /// </summary>
-    protected uint _colour = 0;
+    protected uint _color = 0;
     /// <summary>
-    /// сестояние (видимый/невидимый) true - видимый
+    /// состояние (видимый/невидимый) true - видимый
     /// </summary>
     protected bool _visible = true;
-    /// <summary>
-    /// сестояние (видимый/невидимый) true - видимый
-    /// </summary>
-    public bool Visible
+
+    public virtual int X { get => _x; set => SetPosition(value, _y); }
+    public virtual int Y { get => _y; set => SetPosition(_x, value); }
+
+    public virtual bool Visible
     {
         get => _visible;
         set
@@ -35,54 +54,32 @@ public abstract class Figure
             if (value != _visible) { _visible = value; DoVisibleChange(); }
         }
     }
-    /// <summary>
-    /// цвет
-    /// </summary>
-    public uint Colour
+    public virtual uint Color
     {
-        get => _colour;
+        get => _color;
         set
         {
-            if (value != _colour) { _colour = value; DoColourChange(); }
+            if (value != _color) { _color = value; DoColorChange(); }
         }
     }
 
-    /// <summary>
-    /// перемещение по горизонтали
-    /// </summary>
-    /// <param name="value">величина перемещения</param>
-    public abstract void MoveX(int value);
-    /// <summary>
-    /// перемещение по вертикали
-    /// </summary>
-    /// <param name="value">величина перемещения</param>
-    public abstract void MoveY(int value);
-    /// <summary>
-    /// вывод состояния полей объекта
-    /// </summary>
+    public virtual void SetPosition(int X, int Y)
+    {
+        if (X == _x && Y == _y) return;
+        _x = X; _y = Y;
+        DoPositionChange();// вызов события..
+    }
+    public virtual void MoveX(int value) => SetPosition(value + _x, _y);
+    public virtual void MoveY(int value) => SetPosition(_x, value + _y);
     public abstract void Draw();
-    /// <summary>
-    /// площадь фигуры
-    /// </summary>
-    /// <returns></returns>
     public abstract double Area();
-    public override string ToString() => $"Colour: {_colour}\tVisible: {_visible}";
+    public override string ToString() => $"X: {_x};\tY: {_y};\tColor: {_color}\tVisible: {_visible}";
 
-    /// <summary>
-    /// метод для вызова события OnVisibleChanged - изменение свойства видимости
-    /// </summary>
-    public void DoVisibleChange() => OnVisibleChanged?.Invoke(this, EventArgs.Empty);
-    /// <summary>
-    /// метод для вызова события OnColourChanged - изменение цвета
-    /// </summary>
-    public void DoColourChange() => OnColourChanged?.Invoke(this, EventArgs.Empty);
-
-    /// <summary>
-    /// событие "изменение видимости объекта"
-    /// </summary>
     public event EventHandler OnVisibleChanged;
-    /// <summary>
-    /// событие "изменение цвета объекта"
-    /// </summary>
-    public event EventHandler OnColourChanged;
+    public event EventHandler OnColorChanged;
+    public event EventHandler OnPositionChange;
+
+    public void DoVisibleChange() => OnVisibleChanged?.Invoke(this, EventArgs.Empty);
+    public void DoColorChange() => OnColorChanged?.Invoke(this, EventArgs.Empty);
+    public void DoPositionChange() => OnPositionChange?.Invoke(this, EventArgs.Empty);
 }
