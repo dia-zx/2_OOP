@@ -66,7 +66,7 @@ public abstract class Figure : IFigure
     public virtual void SetPosition(int X, int Y)
     {
         if (X == _x && Y == _y) return;
-        _x = X; _y = Y;
+        (_x, _y) = (X, Y);
         DoPositionChange();// вызов события..
     }
     public virtual void MoveX(int value) => SetPosition(value + _x, _y);
