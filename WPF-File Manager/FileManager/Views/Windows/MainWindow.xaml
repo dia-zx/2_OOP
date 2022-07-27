@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FileManager"
         xmlns:viewmodels="clr-namespace:FileManager.ViewModels"
         mc:Ignorable="d"
-        Title="WPF FileManager" Height="450" Width="800">
+        Title="WPF FileManager" Height="450" Width="705">
     <Window.DataContext>
         <viewmodels:MainWindowViewModel/>
     </Window.DataContext>
@@ -21,7 +21,18 @@
             </MenuItem>
         </Menu>
         <!--#endregion-->
-        <StatusBar></StatusBar>
-        <Grid></Grid>
+        <StatusBar DockPanel.Dock="Bottom" Height="20"></StatusBar>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="10" Width="*" ></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition MinWidth="10" Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid></DataGrid>
+            <DataGrid Grid.Column="2"></DataGrid>
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+        </Grid>
     </DockPanel>
 </Window>
