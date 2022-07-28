@@ -6,6 +6,12 @@ namespace FileManager.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        public double SecondMenuItemsHeight { 
+            get;
+            set;
+        }
+
+
         public CloseApplicationCommand CloseApplicationCommand { get => new CloseApplicationCommand(); }
 
     }

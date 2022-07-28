@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:FileManager"
         xmlns:viewmodels="clr-namespace:FileManager.ViewModels"
         mc:Ignorable="d"
-        Title="WPF FileManager" Height="450" Width="705">
+        Title="WPF FileManager" Height="450" Width="705" SizeChanged="Window_SizeChanged"
+        
+        >
     <Window.DataContext>
         <viewmodels:MainWindowViewModel/>
     </Window.DataContext>
@@ -28,11 +30,63 @@
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition MinWidth="10" Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <DataGrid></DataGrid>
-            <DataGrid Grid.Column="2"></DataGrid>
-            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Background="Aqua"
+                      x:Name="LeftPanel"
+                      AutoGenerateColumns="True"
+                      >
+                
+            </DataGrid>
+            <DataGrid  Grid.Column="2"></DataGrid>
+            <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-
+            <StatusBar x:Name="StatusBarLeft" Grid.Row="1" Grid.Column="0" Height="20"></StatusBar>
+            <StatusBar x:Name="StatusBarRight" Grid.Row="1" Grid.Column="2" Height="20"></StatusBar>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" BorderThickness="0"
+                    Background="{Binding ElementName=StatusBarLeft, Path=Background}" Click="Button_Click" >
+                    F3 Просмотр
+                </Button>
+                <Button Grid.Column="1" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                    F4 Правка
+                </Button>
+                <Button Grid.Column="2" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                    F5 Копирование
+                </Button>
+                <Button Grid.Column="3" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                    F6 Перемещение
+                </Button>
+                <Button Grid.Column="4" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                    F7 Каталог
+                </Button>
+                <Button Grid.Column="5" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                    F8 Удаление
+                </Button>
+                <Button Grid.Column="6" BorderThickness="0" 
+                        Background="{Binding ElementName=StatusBarLeft, Path=Background}"
+                        Command="{Binding CloseApplicationCommand}"
+                        >
+                    Alt+F4 Выход
+                </Button>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>
