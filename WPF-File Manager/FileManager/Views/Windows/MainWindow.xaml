@@ -47,10 +47,14 @@
                       ItemsSource="{Binding FileTableListLeft}"
                       AlternatingRowBackground="#f0f0f0"
                       GridLinesVisibility="None"
-                      HorizontalScrollBarVisibility="Disabled" SelectionChanged="LeftPanel_SelectionChanged" 
+                      HorizontalScrollBarVisibility="Disabled" SelectionChanged="LeftPanel_SelectionChanged"
+                      IsReadOnly="True" 
+                      
                       >
                 <DataGrid.InputBindings >
-                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" ></KeyBinding>
+                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" />
+                    <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Left" MouseAction="LeftDoubleClick"/>
+                    <KeyBinding Key="Tab" />
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" ></DataGridTextColumn>
@@ -70,7 +74,13 @@
                        AlternatingRowBackground="#f0f0f0"
                        GridLinesVisibility="None" 
                        HorizontalScrollBarVisibility="Disabled"
+                       SelectionChanged="LeftPanel_SelectionChanged"
+                       IsReadOnly="True" 
                        >
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Right" />
+                    <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Right" MouseAction="LeftDoubleClick"/>
+                </DataGrid.InputBindings>                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
