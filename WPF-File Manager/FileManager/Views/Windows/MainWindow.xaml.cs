@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FileManager.Infrastructrure;
+using FileManager.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,33 +15,28 @@ namespace FileManager
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+        
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //foreach (var item in SecondMenu.Items)
-            //{
-            //    ((System.Windows.Controls.MenuItem)item).Width = SecondMenu.ActualWidth / SecondMenu.Items.Count;
-            //    ((System.Windows.Controls.MenuItem)item).HorizontalContentAlignment = HorizontalAlignment.Center;
-            //}
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //List<Person> list = new ();
-            //list.Add(new Person { Name = "Иван", FirstName = "Давыдов", YearsOld = 43});
-            //list.Add(new Person { Name = "Владимир", FirstName = "Емельянов", YearsOld = 40 });
-            //LeftPanel.ItemsSource = list;
-            DirectoryInfo directoryInfo = new("c:\\");
-            LeftPanel.ItemsSource = directoryInfo.EnumerateDirectories();
+            FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo(Environment.CurrentDirectory); //new DirectoryInfo("C:\\");
+ 
+         }
+
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo("C:\\");
+            if(LeftPanel.SelectedItems == null) 
+                return;
         }
-    }
-    public class Person
-    {
-        public string Name { get; set; }  
-        public string FirstName { get; set; }
-        public int YearsOld { get; set; }
+
+        private void LeftPanel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            FileManagerClass.GetInstance().FilePanelLeft.FilesSelected = LeftPanel.SelectedItems;
+        }
     }
 }

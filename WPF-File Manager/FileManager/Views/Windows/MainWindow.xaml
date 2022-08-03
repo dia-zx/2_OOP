@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FileManager"
         xmlns:viewmodels="clr-namespace:FileManager.ViewModels"
         mc:Ignorable="d"
-        Title="WPF FileManager" Height="450" Width="705" SizeChanged="Window_SizeChanged"
+        Title="WPF FileManager" Height="450" Width="705"
         
         >
     <Window.DataContext>
@@ -25,6 +25,11 @@
         <!--#endregion-->
         <StatusBar DockPanel.Dock="Bottom" Height="20"></StatusBar>
         <Grid>
+            <Grid.Resources>
+                <Style TargetType="DataGrid">
+                    <Setter Property="AutoGenerateColumns" Value="False"/>
+                </Style>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="10" Width="*" ></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -35,18 +40,58 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <DataGrid Background="Aqua"
-                      x:Name="LeftPanel"
-                      AutoGenerateColumns="True"
+
+            <!--#region FilePanelLet -->
+            <DataGrid x:Name="LeftPanel"   
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding FileTableListLeft}"
+                      AlternatingRowBackground="#f0f0f0"
+                      GridLinesVisibility="None"
+                      HorizontalScrollBarVisibility="Disabled" SelectionChanged="LeftPanel_SelectionChanged" 
                       >
-                
+                <DataGrid.InputBindings >
+                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" ></KeyBinding>
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Размер" Binding="{Binding Size}" />
+                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime}"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+
             </DataGrid>
-            <DataGrid  Grid.Column="2"></DataGrid>
+            <!--#endregion-->
+
+            <!--#region FilePanelRight -->
+            <DataGrid  x:Name="RightPanel"
+                       Grid.Column="2"
+                       ItemsSource="{Binding FileTableListRight}"
+                       AlternatingRowBackground="#f0f0f0"
+                       GridLinesVisibility="None" 
+                       HorizontalScrollBarVisibility="Disabled"
+                       >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Размер" Binding="{Binding Size}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--#endregion-->
+
             <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
             <StatusBar x:Name="StatusBarLeft" Grid.Row="1" Grid.Column="0" Height="20"></StatusBar>
             <StatusBar x:Name="StatusBarRight" Grid.Row="1" Grid.Column="2" Height="20"></StatusBar>
+            <!--#region Bottom Buttons -->
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderThickness" Value="0"></Setter>
+                        <Setter Property="Background" Value="{Binding ElementName=StatusBarLeft, Path=Background}"/>
+                    </Style>
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -56,37 +101,33 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" BorderThickness="0"
-                    Background="{Binding ElementName=StatusBarLeft, Path=Background}" Click="Button_Click" >
+                <Button Grid.Column="0"
+                     Click="Button_Click" >
                     F3 Просмотр
                 </Button>
-                <Button Grid.Column="1" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                <Button Grid.Column="1"
+                        Click="Button_Click_2" >>
                     F4 Правка
                 </Button>
-                <Button Grid.Column="2" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                <Button Grid.Column="2">
                     F5 Копирование
                 </Button>
-                <Button Grid.Column="3" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                <Button Grid.Column="3">
                     F6 Перемещение
                 </Button>
-                <Button Grid.Column="4" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                <Button Grid.Column="4">
                     F7 Каталог
                 </Button>
-                <Button Grid.Column="5" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}" >
+                <Button Grid.Column="5">
                     F8 Удаление
                 </Button>
-                <Button Grid.Column="6" BorderThickness="0" 
-                        Background="{Binding ElementName=StatusBarLeft, Path=Background}"
+                <Button Grid.Column="6" 
                         Command="{Binding CloseApplicationCommand}"
                         >
                     Alt+F4 Выход
                 </Button>
             </Grid>
+            <!--#endregion-->
         </Grid>
     </DockPanel>
 </Window>
