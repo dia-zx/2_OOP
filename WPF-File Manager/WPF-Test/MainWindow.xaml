@@ -4,9 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Test"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <Window.Resources>
+        <col:ArrayList x:Key="Data1">
+            <sys:String >C:</sys:String>
+            <sys:String >D:</sys:String>
+        </col:ArrayList>
+    </Window.Resources>
+    <DockPanel>
+        <Button Height="100" Width="300" Click="Button_Click">Second Window</Button>
+        <ToolBar Height="26" Width="230" ItemsSource="{StaticResource Data1}">
+            <ToolBar.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding}" ></Button>
+                </DataTemplate>
+            </ToolBar.ItemTemplate>
+        </ToolBar>
+        <StatusBar ItemsSource="{StaticResource Data1}">
+            <StatusBar.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding}"></Button>
+                </DataTemplate>
+            </StatusBar.ItemTemplate>
+        </StatusBar>
+    </DockPanel>
 </Window>
+
+

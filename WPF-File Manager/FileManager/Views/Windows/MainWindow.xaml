@@ -28,6 +28,11 @@
             <Grid.Resources>
                 <Style TargetType="DataGrid">
                     <Setter Property="AutoGenerateColumns" Value="False"/>
+                    <Setter Property="GridLinesVisibility" Value="None"/>
+                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="AlternatingRowBackground" Value="#f0f0f0"/>
+
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
@@ -36,20 +41,26 @@
                 <ColumnDefinition MinWidth="10" Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
+            <!--#region Disks ButtonsPanel -->
+            <StatusBar Grid.Row="0" Height="30" ItemsSource="{Binding FileTableListLeft}">
+                <StatusBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding FileInfo.Name}"></Button>
+                    </DataTemplate>
+                </StatusBar.ItemTemplate>
+            </StatusBar>
+            <!--#endregion-->
+
             <!--#region FilePanelLet -->
-            <DataGrid x:Name="LeftPanel"   
-                      AutoGenerateColumns="False"
+            <DataGrid x:Name="LeftPanel" Grid.Row="1"  
                       ItemsSource="{Binding FileTableListLeft}"
-                      AlternatingRowBackground="#f0f0f0"
-                      GridLinesVisibility="None"
-                      HorizontalScrollBarVisibility="Disabled" SelectionChanged="LeftPanel_SelectionChanged"
-                      IsReadOnly="True" 
-                      
+                      SelectionChanged="LeftPanel_SelectionChanged"
                       >
                 <DataGrid.InputBindings >
                     <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" />
@@ -69,13 +80,9 @@
 
             <!--#region FilePanelRight -->
             <DataGrid  x:Name="RightPanel"
-                       Grid.Column="2"
+                       Grid.Column="2" Grid.Row="1"
                        ItemsSource="{Binding FileTableListRight}"
-                       AlternatingRowBackground="#f0f0f0"
-                       GridLinesVisibility="None" 
-                       HorizontalScrollBarVisibility="Disabled"
                        SelectionChanged="LeftPanel_SelectionChanged"
-                       IsReadOnly="True" 
                        >
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Right" />
@@ -92,10 +99,10 @@
 
             <GridSplitter Grid.Column="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-            <StatusBar x:Name="StatusBarLeft" Grid.Row="1" Grid.Column="0" Height="20"></StatusBar>
-            <StatusBar x:Name="StatusBarRight" Grid.Row="1" Grid.Column="2" Height="20"></StatusBar>
+            <StatusBar x:Name="StatusBarLeft" Grid.Row="2" Grid.Column="0" Height="20"></StatusBar>
+            <StatusBar x:Name="StatusBarRight" Grid.Row="2" Grid.Column="2" Height="20"></StatusBar>
             <!--#region Bottom Buttons -->
-            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" >
                 <Grid.Resources>
                     <Style TargetType="Button">
                         <Setter Property="BorderThickness" Value="0"></Setter>
