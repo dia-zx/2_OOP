@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:FileManager"
         xmlns:viewmodels="clr-namespace:FileManager.ViewModels"
         mc:Ignorable="d"
-        Title="WPF FileManager" Height="450" Width="705"
-        
+        Title="WPF FileManager" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"        
         >
+    <Window.InputBindings>
+        <KeyBinding Key="F8" Command="{Binding  RemoveFileCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding CloseApplicationCommand}"/>
+    </Window.InputBindings>
     <Window.DataContext>
         <viewmodels:MainWindowViewModel/>
     </Window.DataContext>
@@ -48,21 +52,57 @@
             </Grid.RowDefinitions>
 
             <!--#region Disks ButtonsPanel -->
-            <StatusBar Grid.Row="0" Height="30" ItemsSource="{Binding FileTableListLeft}">
+            <StatusBar Grid.Row="0" Height="30" ItemsSource="{Binding Drives}" x:Name="ButtonsPanelLeft">
                 <StatusBar.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding FileInfo.Name}"></Button>
+                        <StatusBarItem >
+
+                            <Button Command="{Binding DiskChangeLeft, Source=viewmodels:MainWindowViewModel}" CommandParameter="g:\\" 
+                                    Click="Button_Click"
+                                    Content="{Binding}"
+                                    >
+
+
+                            </Button>
+
+                        </StatusBarItem>
                     </DataTemplate>
                 </StatusBar.ItemTemplate>
             </StatusBar>
+            <!--#region 
+            <StatusBar Grid.Row="0" Height="30" ItemsSource="{Binding Drives}">
+
+                <StatusBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Name}">
+                            <Button.InputBindings>
+                                <MouseBinding Command="{Binding DiskChangeLeft}" CommandParameter="g:\\" MouseAction="LeftClick"/>
+                            </Button.InputBindings>
+                        </Button>
+                    </DataTemplate>
+                </StatusBar.ItemTemplate>
+            </StatusBar>
+            -->
             <!--#endregion-->
 
             <!--#region FilePanelLet -->
             <DataGrid x:Name="LeftPanel" Grid.Row="1"  
                       ItemsSource="{Binding FileTableListLeft}"
                       SelectionChanged="LeftPanel_SelectionChanged"
+                      SelectedIndex="{Binding SelectedIndexLeft}" GotFocus="LeftPanel_GotFocus"  
+                      
                       >
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="Background" Value="#0CDAFF" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.InputBindings >
+
                     <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" />
                     <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Left" MouseAction="LeftDoubleClick"/>
                     <KeyBinding Key="Tab" />
@@ -71,7 +111,7 @@
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Размер" Binding="{Binding Size}" />
-                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=dd.MM.yyyy HH:mm:ss}"></DataGridTextColumn>
                 </DataGrid.Columns>
 
 
@@ -83,11 +123,12 @@
                        Grid.Column="2" Grid.Row="1"
                        ItemsSource="{Binding FileTableListRight}"
                        SelectionChanged="LeftPanel_SelectionChanged"
+                       GotFocus="RightPanel_GotFocus"
                        >
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Right" />
                     <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Right" MouseAction="LeftDoubleClick"/>
-                </DataGrid.InputBindings>                
+                </DataGrid.InputBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
@@ -119,11 +160,11 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
-                     Click="Button_Click" >
+                     Command="{Binding ViewCommand}" >
                     F3 Просмотр
                 </Button>
                 <Button Grid.Column="1"
-                        Click="Button_Click_2" >>
+                        Click="Button_Click_2" >
                     F4 Правка
                 </Button>
                 <Button Grid.Column="2">
@@ -135,7 +176,7 @@
                 <Button Grid.Column="4">
                     F7 Каталог
                 </Button>
-                <Button Grid.Column="5">
+                <Button Grid.Column="5" Command="{Binding RemoveFileCommand}">
                     F8 Удаление
                 </Button>
                 <Button Grid.Column="6" 

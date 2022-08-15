@@ -5,6 +5,8 @@ using FileManager.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.IO;
+using System.Linq;
 
 namespace FileManager.ViewModels
 {
@@ -28,17 +30,22 @@ namespace FileManager.ViewModels
 
         public IEnumerable<FileTableList> FileTableListLeft { get => FileManagerClass.GetInstance().FilePanelLeft.GetFileList(); }
         public IEnumerable<FileTableList> FileTableListRight { get => FileManagerClass.GetInstance().FilePanelRight.GetFileList(); }
+        public IEnumerable<DriveInfo> Drives { get => FileManagerClass.GetInstance().DrivePanel.DrivesList; }
 
-   //     public IEnumerable<object> FileTableSelectedItemsLeft
-   //     {
-   //         get => FileManagerClass.GetInstance().FilePanelLeft.FilesSelected;
-   ////         set => Set<IEnumerable<object>>(ref _FileTableListLeft, value);
-   //     }
+
+        //     public IEnumerable<object> FileTableSelectedItemsLeft
+        //     {
+        //         get => FileManagerClass.GetInstance().FilePanelLeft.FilesSelected;
+        ////         set => Set<IEnumerable<object>>(ref _FileTableListLeft, value);
+        //     }
 
 
 
         public CloseApplicationCommand CloseApplicationCommand { get => new CloseApplicationCommand(); }
         public ExercuteFileCommand ExercuteFileCommand { get => new ExercuteFileCommand(); }
+        public DiskChangeLeft DiskChangeLeft { get => new DiskChangeLeft(); }
+        public RemoveFileCommand RemoveFileCommand { get => new RemoveFileCommand(); }
+        public ViewCommand ViewCommand { get => new ViewCommand(); }
 
  //       private IEnumerable<object> _FileTableListLeft;
  //       private IEnumerable<object> _FileTableListRight;

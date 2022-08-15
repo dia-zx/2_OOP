@@ -21,7 +21,6 @@ namespace FileManager.Infrastructrure
             _DirWatcher.Deleted += _DirWatcher_Changed;
             _DirWatcher.Renamed += _DirWatcher_Changed;
             _DirWatcher.EnableRaisingEvents = true;
-
         }
 
         private void _DirWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -53,11 +52,11 @@ namespace FileManager.Infrastructrure
         {
             if (_CurDir.Parent != null)
                 yield return new FileTableList("\\..", "", "<Папка>",
-                    _CurDir?.Parent?.CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), _CurDir.Parent);
+                    _CurDir.Parent.CreationTime, _CurDir.Parent);
             foreach (var dir in _CurDir.GetDirectories())
             {
                 yield return new FileTableList(dir.Name, "", "<Папка>",
-                    dir.CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), dir);
+                    dir.CreationTime, dir);
             }
 
             foreach (var file in _CurDir.GetFiles())
@@ -66,7 +65,7 @@ namespace FileManager.Infrastructrure
                     Path.GetFileNameWithoutExtension(file.Name),
                     GetExtention(Path.GetExtension(file.Name)),
                     file.Length.ToString("### ### ### ###"),
-                    file.CreationTime.ToString("dd.MM.yyyy HH:mm:ss"), file);
+                    file.CreationTime, file);
             }
         }
 
@@ -81,5 +80,7 @@ namespace FileManager.Infrastructrure
             if (ext[0] != '.') return ext;
             return ext.AsSpan().Slice(1).ToString(); 
         }
+
+        
     }
 }

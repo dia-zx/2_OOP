@@ -24,15 +24,14 @@ namespace FileManager.Infrastructrure.Commands
                 filePanel = FileManagerClass.GetInstance().FilePanelRight;
             if (filePanel.FilesSelected.Count != 1) return;
 
-            if (((FileTableList)filePanel.FilesSelected[0]).FileInfo is DirectoryInfo)
+            if (((FileTableList)filePanel.FilesSelected[0]).FileSystemInfo is DirectoryInfo)
             {
-                filePanel.CurDir = (DirectoryInfo)((FileTableList)filePanel.FilesSelected[0]).FileInfo;
+                filePanel.CurDir = (DirectoryInfo)((FileTableList)filePanel.FilesSelected[0]).FileSystemInfo;
                 return;
             }
-            ProcessStartInfo startInfo = new ProcessStartInfo(((FileTableList)filePanel.FilesSelected[0]).FileInfo.FullName);
+            ProcessStartInfo startInfo = new ProcessStartInfo(((FileTableList)filePanel.FilesSelected[0]).FileSystemInfo.FullName);
             startInfo.UseShellExecute = true;
             Process.Start(startInfo);
-            return;
-        }
+         }
     }
 }

@@ -19,8 +19,25 @@ namespace FileManager.Infrastructrure
         {
             FilePanelLeft = new();
             FilePanelRight = new();
+            DrivePanel = new();
         }
+
+        FilePanel _ActivePanel = null;
+
+        public FilePanel ActivePanel
+        {
+            get => _ActivePanel;
+            set
+            {
+                if ((value == FilePanelLeft) || (value == FilePanelRight))
+                    _ActivePanel = value;
+                else
+                    _ActivePanel = null;
+            } 
+        }
+
         public FilePanel FilePanelLeft { get; }
         public FilePanel FilePanelRight { get; }
+        public DrivePanel DrivePanel { get; }
     }
 }
