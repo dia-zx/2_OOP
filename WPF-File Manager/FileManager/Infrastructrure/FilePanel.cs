@@ -13,14 +13,14 @@ namespace FileManager.Infrastructrure
     {
         public FilePanel()
         {
-            _CurDir = new DirectoryInfo(Environment.CurrentDirectory);
+//            _CurDir = new DirectoryInfo(Environment.CurrentDirectory);
             _CurDir = new DirectoryInfo("C:\\");
-            _DirWatcher = new(_CurDir.FullName);
+            _DirWatcher = new();// _CurDir.FullName);
             _DirWatcher.Changed += _DirWatcher_Changed;
             _DirWatcher.Created += _DirWatcher_Changed;
             _DirWatcher.Deleted += _DirWatcher_Changed;
             _DirWatcher.Renamed += _DirWatcher_Changed;
-            EnableEvents = true;
+            //EnableEvents = true;
             //_DirWatcher.EnableRaisingEvents = true;
         }
         public bool EnableEvents

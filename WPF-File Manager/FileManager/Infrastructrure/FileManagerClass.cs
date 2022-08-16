@@ -20,6 +20,7 @@ namespace FileManager.Infrastructrure
             FilePanelLeft = new();
             FilePanelRight = new();
             DrivePanel = new();
+            UpdateCurDirs();
         }
 
         FilePanel _ActivePanel = null;
@@ -39,5 +40,13 @@ namespace FileManager.Infrastructrure
         public FilePanel FilePanelLeft { get; }
         public FilePanel FilePanelRight { get; }
         public DrivePanel DrivePanel { get; }
+
+        /// <summary>
+        /// обновляет значения текущих каталогов
+        /// </summary>
+        public void UpdateCurDirs() {
+            FilePanelLeft.CurDir = FilePanelLeft.CurDir;
+            FilePanelRight.CurDir = FilePanelRight.CurDir;
+        }
     }
 }

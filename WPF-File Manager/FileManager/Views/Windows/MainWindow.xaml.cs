@@ -47,13 +47,6 @@ namespace FileManager
             FileManagerClass.GetInstance().FilePanelRight.CurDir = new DirectoryInfo(((Button)sender).Content.ToString());
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo("C:\\");
-            LeftPanel.SelectedIndex = 0;
-            if (LeftPanel.SelectedItems == null)
-                return;
-        }
 
         private void LeftPanel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
@@ -96,6 +89,7 @@ namespace FileManager
 
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if(e.Key == Key.Enter)
             ((Control)sender).MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
         }
     }

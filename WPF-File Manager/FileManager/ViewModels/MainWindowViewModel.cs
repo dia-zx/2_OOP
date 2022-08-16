@@ -67,6 +67,7 @@ namespace FileManager.ViewModels
         public RemoveFileCommand RemoveFileCommand { get => new RemoveFileCommand(); }
         public ViewCommand ViewCommand { get => new ViewCommand(); }
         public CopyFileCommand CopyFileCommand { get => new CopyFileCommand(); }
+        public MoveFileCommand MoveFileCommand { get => new MoveFileCommand(); }    
 
  //       private IEnumerable<object> _FileTableListLeft;
  //       private IEnumerable<object> _FileTableListRight;

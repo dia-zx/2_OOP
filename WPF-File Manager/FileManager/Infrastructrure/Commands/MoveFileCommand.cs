@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
-    internal class CopyFileCommand : Command
+    internal class MoveFileCommand : Command
     {
         public override bool CanExecute(object? parameter)
         {
@@ -56,11 +56,11 @@ namespace FileManager.Infrastructrure.Commands
                 {
                     try
                     {
-                        File.Copy(fileSystemInfo.FullName, Path.Combine(DestinationDir.FullName, fileSystemInfo.Name));
+                        File.Move(fileSystemInfo.FullName, Path.Combine(DestinationDir.FullName, fileSystemInfo.Name));
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show($"Ошибка при копировании файла: {fileSystemInfo.FullName}");
+                        MessageBox.Show($"Ошибка при перемещении файла: {fileSystemInfo.FullName}");
                     }
                     continue;
                 }
@@ -68,7 +68,7 @@ namespace FileManager.Infrastructrure.Commands
                 {
                     try
                     {
-                        CopyDir((DirectoryInfo)fileSystemInfo, DestinationDir);
+                        MoveDir((DirectoryInfo)fileSystemInfo, DestinationDir);
                     }
                     catch (Exception)
                     {
@@ -80,17 +80,19 @@ namespace FileManager.Infrastructrure.Commands
             FileManagerClass.GetInstance().UpdateCurDirs();
         }
 
+
         /// <summary>
-        /// Рекурсивный метод копирования каталогов
+        /// Рекурсивный метод переноса каталогов
         /// </summary>
         /// <param name="SourceDir"></param>
         /// <param name="DestinationDir"></param>
-        private void CopyDir(DirectoryInfo SourceDir, DirectoryInfo DestinationDir)
+        private void MoveDir(DirectoryInfo SourceDir, DirectoryInfo DestinationDir)
         {
             DirectoryInfo new_dir = new(Path.Combine(DestinationDir.FullName, SourceDir.Name));
             try
             {
                 Directory.CreateDirectory(new_dir.FullName);
+                
             }
             catch (Exception)
             {
@@ -101,17 +103,18 @@ namespace FileManager.Infrastructrure.Commands
             {
                 try
                 {
-                    File.Copy(file.FullName, Path.Combine(new_dir.FullName, file.Name));
+                    File.Move(file.FullName, Path.Combine(new_dir.FullName, file.Name));
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show($"Ошибка при копировании файла: {file.FullName}");
+                    MessageBox.Show($"Ошибка при перемещении файла: {file.FullName}");
                 }
             }
             foreach (var dir in SourceDir.GetDirectories())
             {
-                CopyDir(dir, new_dir);
+                MoveDir(dir, new_dir);
             }
+            Directory.Delete(SourceDir.FullName, false);
         }
     }
 }

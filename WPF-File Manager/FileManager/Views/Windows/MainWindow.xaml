@@ -13,6 +13,7 @@
         <KeyBinding Key="F8" Command="{Binding  RemoveFileCommand}"/>
         <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding CloseApplicationCommand}"/>
         <KeyBinding Key="F5" Command="{Binding CopyFileCommand}"/>
+        <KeyBinding Key="F6" Command="{Binding MoveFileCommand}"/>
     </Window.InputBindings>
     
     <Window.DataContext>
@@ -203,14 +204,13 @@
                      Command="{Binding ViewCommand}" >
                     F3 Просмотр
                 </Button>
-                <Button Grid.Column="1"
-                        Click="Button_Click_2" >
+                <Button Grid.Column="1" >
                     F4 Правка
                 </Button>
                 <Button Grid.Column="2" Command="{Binding CopyFileCommand}">
                     F5 Копирование
                 </Button>
-                <Button Grid.Column="3">
+                <Button Grid.Column="3" Command="{Binding MoveFileCommand}">
                     F6 Перемещение
                 </Button>
                 <Button Grid.Column="4">
