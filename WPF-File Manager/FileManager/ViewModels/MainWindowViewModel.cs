@@ -21,17 +21,37 @@ namespace FileManager.ViewModels
         private void FilePanelRight_DirChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(FileTableListRight));
+            OnPropertyChanged(nameof(RightPanelCurrentDir));
         }
 
         private void FilePanelLeft_DirChanged(object? sender, System.EventArgs e)
         {
             OnPropertyChanged(nameof(FileTableListLeft));
+            OnPropertyChanged(nameof(LeftPanelCurrentDir));
         }
 
         public IEnumerable<FileTableList> FileTableListLeft { get => FileManagerClass.GetInstance().FilePanelLeft.GetFileList(); }
         public IEnumerable<FileTableList> FileTableListRight { get => FileManagerClass.GetInstance().FilePanelRight.GetFileList(); }
         public IEnumerable<DriveInfo> Drives { get => FileManagerClass.GetInstance().DrivePanel.DrivesList; }
-
+        public string LeftPanelCurrentDir
+        {
+            get => FileManagerClass.GetInstance().FilePanelLeft.CurDir.FullName;
+            set
+            {
+                if (LeftPanelCurrentDir == value) return;
+                if (Directory.Exists(value))
+                    FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo(value);
+                OnPropertyChanged(nameof(LeftPanelCurrentDir));
+            }
+        }
+        public string RightPanelCurrentDir { get=> FileManagerClass.GetInstance().FilePanelRight.CurDir.FullName;
+            set{
+                if (RightPanelCurrentDir == value) return;
+                if (Directory.Exists(value))
+                    FileManagerClass.GetInstance().FilePanelRight.CurDir = new DirectoryInfo(value);
+                OnPropertyChanged(nameof(RightPanelCurrentDir));
+            }              
+        }
 
         //     public IEnumerable<object> FileTableSelectedItemsLeft
         //     {
@@ -46,6 +66,7 @@ namespace FileManager.ViewModels
         public DiskChangeLeft DiskChangeLeft { get => new DiskChangeLeft(); }
         public RemoveFileCommand RemoveFileCommand { get => new RemoveFileCommand(); }
         public ViewCommand ViewCommand { get => new ViewCommand(); }
+        public CopyFileCommand CopyFileCommand { get => new CopyFileCommand(); }
 
  //       private IEnumerable<object> _FileTableListLeft;
  //       private IEnumerable<object> _FileTableListRight;

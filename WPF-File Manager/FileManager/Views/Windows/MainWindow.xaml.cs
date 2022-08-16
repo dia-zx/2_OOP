@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 /***
 1.Реализовать простейший файловый менеджер с использованием ООП (классы, наследование и прочее).
 ### Файловый менеджер должен иметь возможность:
@@ -36,13 +37,14 @@ namespace FileManager
         static MainWindow _window;
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void LeftPanelDrivesButton_Click(object sender, RoutedEventArgs e)
         {
-
-
             FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo(((Button)sender).Content.ToString());
-            //FileManagerClass.GetInstance().FilePanelLeft.CurDir = new DirectoryInfo(Environment.CurrentDirectory); //new DirectoryInfo("C:\\");
-            
+        }
+
+        private void RightPanelDrivesButton_Click(object sender, RoutedEventArgs e)
+        {
+            FileManagerClass.GetInstance().FilePanelRight.CurDir = new DirectoryInfo(((Button)sender).Content.ToString());
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -79,8 +81,22 @@ namespace FileManager
         private void RightPanel_GotFocus(object sender, RoutedEventArgs e)
         {
             FileManagerClass.GetInstance().ActivePanel = FileManagerClass.GetInstance().FilePanelRight;
-        } 
+        }
         #endregion
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            ((Control)sender).MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+        }
     }
 }

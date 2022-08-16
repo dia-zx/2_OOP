@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace FileManager.Infrastructrure
 {
-    public class FilePanel 
+    public class FilePanel
     {
         public FilePanel()
         {
@@ -20,8 +20,16 @@ namespace FileManager.Infrastructrure
             _DirWatcher.Created += _DirWatcher_Changed;
             _DirWatcher.Deleted += _DirWatcher_Changed;
             _DirWatcher.Renamed += _DirWatcher_Changed;
-            _DirWatcher.EnableRaisingEvents = true;
+            EnableEvents = true;
+            //_DirWatcher.EnableRaisingEvents = true;
         }
+        public bool EnableEvents
+        {
+            get => _DirWatcher.EnableRaisingEvents;
+            set => _DirWatcher.EnableRaisingEvents = value;
+        }
+
+
 
         private void _DirWatcher_Changed(object sender, FileSystemEventArgs e)
         {
@@ -32,11 +40,36 @@ namespace FileManager.Infrastructrure
         public IList FilesSelected { get; set; }
 
         private DirectoryInfo _CurDir;
-        public DirectoryInfo CurDir {
+        public DirectoryInfo CurDir
+        {
             get => _CurDir;
-            set {                
+            set
+            {
+                #region перебираем различные варианты дирректорий с проверкой на существование
+                do
+                {
+                    if (Directory.Exists(value.FullName)) break;
+                    else
+                        value = _CurDir;
+                    if (Directory.Exists(value.FullName)) break;
+                    else
+                        value = value.Root;
+                    if (Directory.Exists(value.FullName)) break;
+                    else
+                        value = DriveInfo.GetDrives()[0].RootDirectory;
+                } while (false);
                 _CurDir = value;
-                _DirWatcher.Path = _CurDir.FullName;
+                #endregion
+
+                try
+                {
+                    _DirWatcher.Path = _CurDir.FullName;
+                    EnableEvents = true;
+                }
+                catch (Exception)
+                {
+                    return;
+                }
                 OnDirChanged();
             }
         }
@@ -78,9 +111,9 @@ namespace FileManager.Infrastructrure
         {
             if (ext == null || ext.Length < 1) return string.Empty;
             if (ext[0] != '.') return ext;
-            return ext.AsSpan().Slice(1).ToString(); 
+            return ext.AsSpan().Slice(1).ToString();
         }
 
-        
+
     }
 }

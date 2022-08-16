@@ -35,26 +35,44 @@ namespace FileManager.Infrastructrure.Commands
 
             if (new ConfirmDialog().ShowDialog() == false) return;
 
+            #region заблокируем события от изменений в текущих каталогов
+            FileManagerClass.GetInstance().FilePanelLeft.EnableEvents = false;
+            FileManagerClass.GetInstance().FilePanelRight.EnableEvents = false; 
+            #endregion
             foreach (var item in FileManagerClass.GetInstance().ActivePanel.FilesSelected)
             {
                 FileSystemInfo fileSystemInfo = ((FileTableList)item).FileSystemInfo;
                 if (FileManagerClass.GetInstance().ActivePanel.CurDir.Parent?.FullName == fileSystemInfo.FullName) continue;
-                try
+
+                if (fileSystemInfo is FileInfo)
                 {
-                    if (fileSystemInfo is FileInfo)
+                    try
                     {
                         File.Delete(fileSystemInfo.FullName);
-                        continue;
                     }
-                    if (fileSystemInfo is DirectoryInfo)
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"Ошибка при удалении файла: {fileSystemInfo.FullName}");
+                    }
+                    continue;
+                }
+                if (fileSystemInfo is DirectoryInfo)
+                {
+                    try
                     {
                         Directory.Delete(fileSystemInfo.FullName, true);
                     }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"Ошибка при удалении каталога: {fileSystemInfo.FullName}");
+                    }
                 }
-                catch (Exception ex) { MessageBox.Show(ex.ToString()); }
             }
 
-
+            #region Обновим содержимое каталогов после удаления
+            FileManagerClass.GetInstance().FilePanelLeft.CurDir = FileManagerClass.GetInstance().FilePanelLeft.CurDir;
+            FileManagerClass.GetInstance().FilePanelRight.CurDir = FileManagerClass.GetInstance().FilePanelRight.CurDir; 
+            #endregion
         }
     }
 }

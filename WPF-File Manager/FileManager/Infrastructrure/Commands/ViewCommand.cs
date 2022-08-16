@@ -15,7 +15,7 @@ namespace FileManager.Infrastructrure.Commands
         public override bool CanExecute(object? parameter)
         {
             if (FileManagerClass.GetInstance().ActivePanel == null)   return false;
-            if (FileManagerClass.GetInstance().ActivePanel.FilesSelected.Count != 1) return false;
+            if (FileManagerClass.GetInstance().ActivePanel.FilesSelected?.Count != 1) return false;
             return ((FileTableList)(FileManagerClass.GetInstance().ActivePanel.FilesSelected[0])).FileSystemInfo is FileInfo;
         }
 
