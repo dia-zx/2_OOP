@@ -14,6 +14,9 @@
         <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding CloseApplicationCommand}"/>
         <KeyBinding Key="F5" Command="{Binding CopyFileCommand}"/>
         <KeyBinding Key="F6" Command="{Binding MoveFileCommand}"/>
+        <KeyBinding Key="F7" Command="{Binding CreateDirrectoryCommand}"/>
+        <KeyBinding Key="F4" Command="{Binding CreateFileCommand}"/>
+        <KeyBinding Key="F3" Command="{Binding ViewCommand}"/>
     </Window.InputBindings>
     
     <Window.DataContext>
@@ -40,10 +43,10 @@
         <!--#region MainMenu -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Close" Command="{Binding CloseApplicationCommand}"></MenuItem>
+                <MenuItem Header="Close" Command="{Binding CloseApplicationCommand}"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="О программе"></MenuItem>
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
             </MenuItem>
         </Menu>
         <!--#endregion-->
@@ -177,8 +180,9 @@
             <!--#endregion-->
 
             <GridSplitter Grid.Column="1" Grid.RowSpan="3" ShowsPreview="False" Width="3"
-        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-            
+                    HorizontalAlignment="Center" VerticalAlignment="Stretch">                
+            </GridSplitter>
+
             <StatusBar x:Name="StatusBarLeft" Grid.Row="3" Grid.Column="0" Height="20"></StatusBar>
             
             <StatusBar x:Name="StatusBarRight" Grid.Row="3" Grid.Column="2" Height="20"></StatusBar>
@@ -200,12 +204,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
-                     Command="{Binding ViewCommand}" >
+                <Button Grid.Column="0" Command="{Binding ViewCommand}" >
                     F3 Просмотр
                 </Button>
-                <Button Grid.Column="1" >
-                    F4 Правка
+                <Button Grid.Column="1" Command="{Binding CreateFileCommand}">
+                    F4 Файл
                 </Button>
                 <Button Grid.Column="2" Command="{Binding CopyFileCommand}">
                     F5 Копирование
@@ -213,14 +216,13 @@
                 <Button Grid.Column="3" Command="{Binding MoveFileCommand}">
                     F6 Перемещение
                 </Button>
-                <Button Grid.Column="4">
+                <Button Grid.Column="4" Command="{Binding CreateDirrectoryCommand}">
                     F7 Каталог
                 </Button>
                 <Button Grid.Column="5" Command="{Binding RemoveFileCommand}">
                     F8 Удаление
                 </Button>
-                <Button Grid.Column="6" 
-                        Command="{Binding CloseApplicationCommand}"
+                <Button Grid.Column="6" Command="{Binding CloseApplicationCommand}"
                         >
                     Alt+F4 Выход
                 </Button>

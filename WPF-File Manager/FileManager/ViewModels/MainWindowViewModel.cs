@@ -14,8 +14,10 @@ namespace FileManager.ViewModels
     {
         public MainWindowViewModel()
         {
+            #region Подписываемся на события (изменеие состояния текущих каталогов)
             FileManagerClass.GetInstance().FilePanelLeft.DirChanged += FilePanelLeft_DirChanged;
-            FileManagerClass.GetInstance().FilePanelRight.DirChanged += FilePanelRight_DirChanged;
+            FileManagerClass.GetInstance().FilePanelRight.DirChanged += FilePanelRight_DirChanged; 
+            #endregion
         }
 
         private void FilePanelRight_DirChanged(object? sender, EventArgs e)
@@ -53,23 +55,18 @@ namespace FileManager.ViewModels
             }              
         }
 
-        //     public IEnumerable<object> FileTableSelectedItemsLeft
-        //     {
-        //         get => FileManagerClass.GetInstance().FilePanelLeft.FilesSelected;
-        ////         set => Set<IEnumerable<object>>(ref _FileTableListLeft, value);
-        //     }
-
-
-
+        #region Объявление команд файлового менеджера
         public CloseApplicationCommand CloseApplicationCommand { get => new CloseApplicationCommand(); }
         public ExercuteFileCommand ExercuteFileCommand { get => new ExercuteFileCommand(); }
         public DiskChangeLeft DiskChangeLeft { get => new DiskChangeLeft(); }
         public RemoveFileCommand RemoveFileCommand { get => new RemoveFileCommand(); }
         public ViewCommand ViewCommand { get => new ViewCommand(); }
         public CopyFileCommand CopyFileCommand { get => new CopyFileCommand(); }
-        public MoveFileCommand MoveFileCommand { get => new MoveFileCommand(); }    
+        public MoveFileCommand MoveFileCommand { get => new MoveFileCommand(); }
+        public CreateDirrectoryCommand CreateDirrectoryCommand { get => new CreateDirrectoryCommand(); }
+        public CreateFileCommand CreateFileCommand { get => new CreateFileCommand(); }  
+        public AboutCommand AboutCommand { get => new AboutCommand(); }
+        #endregion
 
- //       private IEnumerable<object> _FileTableListLeft;
- //       private IEnumerable<object> _FileTableListRight;
     }
 }
