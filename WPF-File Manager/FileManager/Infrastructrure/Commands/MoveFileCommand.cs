@@ -1,16 +1,14 @@
 ﻿using FileManager.Infrastructrure.Commands.Base;
 using FileManager.Models;
-using FileManager.Views.Windows;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Команда "Перемещение файлов и каталогов"
+    /// </summary>
     internal class MoveFileCommand : Command
     {
         public override bool CanExecute(object? parameter)
@@ -43,11 +41,11 @@ namespace FileManager.Infrastructrure.Commands
             else
                 DestinationDir = FileManagerClass.GetInstance().FilePanelRight.CurDir;
 
-
             #region заблокируем события от изменений в текущих каталогов
             FileManagerClass.GetInstance().FilePanelLeft.EnableEvents = false;
             FileManagerClass.GetInstance().FilePanelRight.EnableEvents = false;
             #endregion
+
             foreach (var item in FileManagerClass.GetInstance().ActivePanel.FilesSelected)
             {
                 FileSystemInfo fileSystemInfo = ((FileTableList)item).FileSystemInfo;
@@ -92,7 +90,7 @@ namespace FileManager.Infrastructrure.Commands
             try
             {
                 Directory.CreateDirectory(new_dir.FullName);
-                
+
             }
             catch (Exception)
             {

@@ -1,16 +1,14 @@
 ﻿using FileManager.Infrastructrure.Commands.Base;
 using FileManager.Models;
-using FileManager.Views.Windows;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Команда "Копирование файлов и каталогов"
+    /// </summary>
     internal class CopyFileCommand : Command
     {
         public override bool CanExecute(object? parameter)
@@ -48,6 +46,7 @@ namespace FileManager.Infrastructrure.Commands
             FileManagerClass.GetInstance().FilePanelLeft.EnableEvents = false;
             FileManagerClass.GetInstance().FilePanelRight.EnableEvents = false;
             #endregion
+
             foreach (var item in FileManagerClass.GetInstance().ActivePanel.FilesSelected)
             {
                 FileSystemInfo fileSystemInfo = ((FileTableList)item).FileSystemInfo;
@@ -74,7 +73,6 @@ namespace FileManager.Infrastructrure.Commands
                     {
                         MessageBox.Show($"Ошибка при копировании каталога: {fileSystemInfo.FullName}");
                     }
-
                 }
             }
             FileManagerClass.GetInstance().UpdateCurDirs();

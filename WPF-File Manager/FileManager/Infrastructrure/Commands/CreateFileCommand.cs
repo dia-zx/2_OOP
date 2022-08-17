@@ -1,15 +1,14 @@
 ﻿using FileManager.Infrastructrure.Commands.Base;
 using FileManager.Views.Windows;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Команда "Создание файла"
+    /// </summary>
     internal class CreateFileCommand : Command
     {
         public override bool CanExecute(object? parameter)
@@ -28,11 +27,11 @@ namespace FileManager.Infrastructrure.Commands
             if (dialog.ShowDialog() == false) return;
             if (dialog.UserTextBox.Text == String.Empty) return;
 
-
             #region заблокируем события от изменений в текущих каталогов
             FileManagerClass.GetInstance().FilePanelLeft.EnableEvents = false;
             FileManagerClass.GetInstance().FilePanelRight.EnableEvents = false;
             #endregion
+
             try
             {
                 File.Create(

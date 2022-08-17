@@ -1,22 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace FileManager.Infrastructrure
 {
+    /// <summary>
+    /// для отображения дисков
+    /// </summary>
     public class DrivePanel
     {
-        public DrivePanel()
-        {
-            
-        }
-
-
-
         public DriveInfo[] DrivesList { get { return DriveInfo.GetDrives(); } }
-
     }
 }

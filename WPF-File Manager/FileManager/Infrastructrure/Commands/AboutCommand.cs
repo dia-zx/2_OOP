@@ -3,6 +3,9 @@ using FileManager.Views.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Вызов окна "О программе.."
+    /// </summary>
     internal class AboutCommand : Command
     {
         public override bool CanExecute(object? parameter) => true;

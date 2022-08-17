@@ -1,9 +1,5 @@
 ﻿using FileManager.Infrastructrure;
-using FileManager.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -77,20 +73,10 @@ namespace FileManager
         }
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
-            ((Control)sender).MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+            if (e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
         }
     }
 }

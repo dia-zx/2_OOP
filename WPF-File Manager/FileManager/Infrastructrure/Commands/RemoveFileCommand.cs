@@ -2,15 +2,14 @@
 using FileManager.Models;
 using FileManager.Views.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.IO;
+using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Команда "Удаление файлов и каталогов"
+    /// </summary>
     internal class RemoveFileCommand : Command
     {
         public override bool CanExecute(object? parameter)

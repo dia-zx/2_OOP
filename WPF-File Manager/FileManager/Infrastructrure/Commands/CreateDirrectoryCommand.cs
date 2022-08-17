@@ -1,16 +1,14 @@
 ﻿using FileManager.Infrastructrure.Commands.Base;
-using FileManager.Models;
 using FileManager.Views.Windows;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FileManager.Infrastructrure.Commands
 {
+    /// <summary>
+    /// Команда "Создание дирректории"
+    /// </summary>
     internal class CreateDirrectoryCommand : Command
     {
         public override bool CanExecute(object? parameter)
@@ -25,15 +23,15 @@ namespace FileManager.Infrastructrure.Commands
             if (FileManagerClass.GetInstance().ActivePanel == null) return;
             if (FileManagerClass.GetInstance().ActivePanel.CurDir == null) return;
             var dialog = new InputDialog();
-            dialog.DialogText.Text = "Введите название дирректории.";            
+            dialog.DialogText.Text = "Введите название дирректории.";
             if (dialog.ShowDialog() == false) return;
-            if(dialog.UserTextBox.Text == String.Empty) return;
-           
+            if (dialog.UserTextBox.Text == String.Empty) return;
 
             #region заблокируем события от изменений в текущих каталогов
             FileManagerClass.GetInstance().FilePanelLeft.EnableEvents = false;
             FileManagerClass.GetInstance().FilePanelRight.EnableEvents = false;
             #endregion
+
             try
             {
                 Directory.CreateDirectory(

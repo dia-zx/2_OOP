@@ -1,11 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FileManager.Models;
+﻿using FileManager.Models;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 namespace FileManager.Infrastructrure
 {
@@ -13,15 +10,13 @@ namespace FileManager.Infrastructrure
     {
         public FilePanel()
         {
-//            _CurDir = new DirectoryInfo(Environment.CurrentDirectory);
-            _CurDir = new DirectoryInfo("C:\\");
-            _DirWatcher = new();// _CurDir.FullName);
+            //_CurDir = new DirectoryInfo(Environment.CurrentDirectory);
+            _CurDir = DriveInfo.GetDrives()[0].RootDirectory;
+            _DirWatcher = new();
             _DirWatcher.Changed += _DirWatcher_Changed;
             _DirWatcher.Created += _DirWatcher_Changed;
             _DirWatcher.Deleted += _DirWatcher_Changed;
             _DirWatcher.Renamed += _DirWatcher_Changed;
-            //EnableEvents = true;
-            //_DirWatcher.EnableRaisingEvents = true;
         }
         public bool EnableEvents
         {
@@ -30,15 +25,12 @@ namespace FileManager.Infrastructrure
         }
 
 
-
-        private void _DirWatcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            OnDirChanged();
-        }
+        private void _DirWatcher_Changed(object sender, FileSystemEventArgs e) => OnDirChanged();
 
         private FileSystemWatcher _DirWatcher;
         public IList FilesSelected { get; set; }
 
+        #region Текущая дирректория панели
         private DirectoryInfo _CurDir;
         public DirectoryInfo CurDir
         {
@@ -73,6 +65,7 @@ namespace FileManager.Infrastructrure
                 OnDirChanged();
             }
         }
+        #endregion
 
         public event EventHandler<EventArgs> DirChanged;
         private void OnDirChanged() { DirChanged?.Invoke(this, EventArgs.Empty); }
@@ -113,7 +106,6 @@ namespace FileManager.Infrastructrure
             if (ext[0] != '.') return ext;
             return ext.AsSpan().Slice(1).ToString();
         }
-
 
     }
 }

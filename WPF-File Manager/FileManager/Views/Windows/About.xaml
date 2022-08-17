@@ -23,9 +23,11 @@
             <TextBlock ></TextBlock>
             <TextBlock TextWrapping="Wrap" Foreground="Blue"
                    Text= "Разработана в рамках курса 'Основы ООП в С#' платформа GeekBrains." />
-            <TextBlock Height="50"></TextBlock>
+            <TextBlock  Text="Version: 0.9 (17.08.2022)" TextAlignment="Center"></TextBlock>
 
-            <Button  DockPanel.Dock="Bottom" Width="100" Height="20" Click="Button_Click">OK</Button>
+            <Button  DockPanel.Dock="Bottom" Width="100" Height="20" Click="Button_Click" Cursor="Hand" Margin="10">
+                OK
+            </Button>
         </StackPanel>
         
 

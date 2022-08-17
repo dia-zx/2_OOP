@@ -1,12 +1,10 @@
-﻿using FileManager.ViewModels.Base;
+﻿using FileManager.Infrastructrure;
 using FileManager.Infrastructrure.Commands;
-using FileManager.Infrastructrure;
 using FileManager.Models;
-using System.Collections;
-using System.Collections.Generic;
+using FileManager.ViewModels.Base;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace FileManager.ViewModels
 {
@@ -16,7 +14,7 @@ namespace FileManager.ViewModels
         {
             #region Подписываемся на события (изменеие состояния текущих каталогов)
             FileManagerClass.GetInstance().FilePanelLeft.DirChanged += FilePanelLeft_DirChanged;
-            FileManagerClass.GetInstance().FilePanelRight.DirChanged += FilePanelRight_DirChanged; 
+            FileManagerClass.GetInstance().FilePanelRight.DirChanged += FilePanelRight_DirChanged;
             #endregion
         }
 
@@ -46,25 +44,27 @@ namespace FileManager.ViewModels
                 OnPropertyChanged(nameof(LeftPanelCurrentDir));
             }
         }
-        public string RightPanelCurrentDir { get=> FileManagerClass.GetInstance().FilePanelRight.CurDir.FullName;
-            set{
+        public string RightPanelCurrentDir
+        {
+            get => FileManagerClass.GetInstance().FilePanelRight.CurDir.FullName;
+            set
+            {
                 if (RightPanelCurrentDir == value) return;
                 if (Directory.Exists(value))
                     FileManagerClass.GetInstance().FilePanelRight.CurDir = new DirectoryInfo(value);
                 OnPropertyChanged(nameof(RightPanelCurrentDir));
-            }              
+            }
         }
 
         #region Объявление команд файлового менеджера
         public CloseApplicationCommand CloseApplicationCommand { get => new CloseApplicationCommand(); }
         public ExercuteFileCommand ExercuteFileCommand { get => new ExercuteFileCommand(); }
-        public DiskChangeLeft DiskChangeLeft { get => new DiskChangeLeft(); }
         public RemoveFileCommand RemoveFileCommand { get => new RemoveFileCommand(); }
         public ViewCommand ViewCommand { get => new ViewCommand(); }
         public CopyFileCommand CopyFileCommand { get => new CopyFileCommand(); }
         public MoveFileCommand MoveFileCommand { get => new MoveFileCommand(); }
         public CreateDirrectoryCommand CreateDirrectoryCommand { get => new CreateDirrectoryCommand(); }
-        public CreateFileCommand CreateFileCommand { get => new CreateFileCommand(); }  
+        public CreateFileCommand CreateFileCommand { get => new CreateFileCommand(); }
         public AboutCommand AboutCommand { get => new AboutCommand(); }
         #endregion
 

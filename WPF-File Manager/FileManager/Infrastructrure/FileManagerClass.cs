@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FileManager.Infrastructrure
+﻿namespace FileManager.Infrastructrure
 {
     public class FileManagerClass
     {
         private static FileManagerClass _instance = null;
         public static FileManagerClass GetInstance()
-        {
-            if( _instance == null ) 
+        {//** SingleTone ***
+            if (_instance == null)
                 _instance = new FileManagerClass();
             return _instance;
         }
@@ -34,7 +28,7 @@ namespace FileManager.Infrastructrure
                     _ActivePanel = value;
                 else
                     _ActivePanel = null;
-            } 
+            }
         }
 
         public FilePanel FilePanelLeft { get; }
@@ -44,7 +38,8 @@ namespace FileManager.Infrastructrure
         /// <summary>
         /// обновляет значения текущих каталогов
         /// </summary>
-        public void UpdateCurDirs() {
+        public void UpdateCurDirs()
+        {
             FilePanelLeft.CurDir = FilePanelLeft.CurDir;
             FilePanelRight.CurDir = FilePanelRight.CurDir;
         }
