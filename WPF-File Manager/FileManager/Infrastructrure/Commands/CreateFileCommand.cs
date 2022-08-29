@@ -13,9 +13,7 @@ namespace FileManager.Infrastructrure.Commands
     {
         public override bool CanExecute(object? parameter)
         {
-            if (FileManagerClass.GetInstance().ActivePanel == null) return false;
-            if (FileManagerClass.GetInstance().ActivePanel.CurDir == null) return false;
-            return true;
+            return FileManagerClass.GetInstance() is { ActivePanel.CurDir is not null };
         }
 
         public override void Execute(object? parameter)
