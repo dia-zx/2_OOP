@@ -5,9 +5,7 @@
         private static FileManagerClass _instance = null;
         public static FileManagerClass GetInstance()
         {//** SingleTone ***
-            if (_instance == null)
-                _instance = new FileManagerClass();
-            return _instance;
+            return _instance ??= new();
         }
         private FileManagerClass()
         {
