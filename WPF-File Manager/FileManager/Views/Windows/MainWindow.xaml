@@ -1,0 +1,233 @@
+﻿<Window x:Class="FileManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManager"
+        xmlns:viewmodels="clr-namespace:FileManager.ViewModels"
+        mc:Ignorable="d"
+        Title="WPF FileManager" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"        
+        >
+    <Window.InputBindings>
+        <KeyBinding Key="F8" Command="{Binding  RemoveFileCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding CloseApplicationCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding CopyFileCommand}"/>
+        <KeyBinding Key="F6" Command="{Binding MoveFileCommand}"/>
+        <KeyBinding Key="F7" Command="{Binding CreateDirrectoryCommand}"/>
+        <KeyBinding Key="F4" Command="{Binding CreateFileCommand}"/>
+        <KeyBinding Key="F3" Command="{Binding ViewCommand}"/>
+    </Window.InputBindings>
+    
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+
+        <!--#region Style TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="LightBlue"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
+    </Window.Resources>
+    
+    <DockPanel>
+        <!--#region MainMenu -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Close" Command="{Binding CloseApplicationCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
+            </MenuItem>
+        </Menu>
+        <!--#endregion-->
+        
+        <StatusBar DockPanel.Dock="Bottom" Height="20"></StatusBar>
+        
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="DataGrid">
+                    <Setter Property="AutoGenerateColumns" Value="False"/>
+                    <Setter Property="GridLinesVisibility" Value="None"/>
+                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="AlternatingRowBackground" Value="#f0f0f0"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Background" Value="#0CDAFF" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="10" Width="*" ></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition MinWidth="10" Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+           
+            <!--#region LeftPanelDrivesButton -->
+            <StatusBar Grid.Row="0"  ItemsSource="{Binding Drives}">
+                <StatusBar.ItemTemplate>
+                    <DataTemplate>
+                        <StatusBarItem >
+                            <Button Click="LeftPanelDrivesButton_Click"                                  
+                                    Content="{Binding Path=Name}"
+                                    Cursor="Hand" FontWeight="Bold" FontSize="14">
+
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="3"/>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                        </StatusBarItem>
+                    </DataTemplate>
+                </StatusBar.ItemTemplate>
+            </StatusBar>
+            <!--#endregion-->
+
+            <!--#region RightPanelDrivesButton -->
+            <StatusBar Grid.Row="0" Grid.Column="2" ItemsSource="{Binding Drives}">
+                <StatusBar.ItemTemplate>
+                    <DataTemplate>
+                        <StatusBarItem >
+                            <Button Click="RightPanelDrivesButton_Click"                                  
+                                    Content="{Binding Path=Name}"
+                                    Cursor="Hand" FontWeight="Bold" FontSize="14">
+                            </Button>
+                        </StatusBarItem>
+                    </DataTemplate>
+                </StatusBar.ItemTemplate>
+            </StatusBar>
+            <!--#endregion-->
+
+            <TextBox Grid.Row="1"  Text="{Binding LeftPanelCurrentDir}" Keyboard.KeyDown="TextBox_KeyDown"/>
+
+
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding RightPanelCurrentDir}"
+                     FontWeight="Bold" Keyboard.KeyDown="TextBox_KeyDown">                
+            </TextBox>
+
+            <!--#region FilePanelLeft -->
+            <DataGrid x:Name="LeftPanel" Grid.Row="2"  
+                      ItemsSource="{Binding FileTableListLeft}"
+                      SelectionChanged="LeftPanel_SelectionChanged"
+                      SelectedIndex="{Binding SelectedIndexLeft}" GotFocus="LeftPanel_GotFocus"  
+                      >
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell" x:Key="RightGridCell">
+                        <Style.Setters>
+                            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+                        </Style.Setters>
+                    </Style>
+                </DataGrid.Resources>
+                
+                <DataGrid.InputBindings >
+                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Left" />
+                    <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Left" MouseAction="LeftDoubleClick"/>
+                    <KeyBinding Key="Tab" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Extention}" >  </DataGridTextColumn>
+                    <DataGridTextColumn Header="Размер" Binding="{Binding Size}" > </DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=dd.MM.yyyy HH:mm:ss}"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+
+            </DataGrid>
+            <!--#endregion-->
+
+            <!--#region FilePanelRight -->
+            <DataGrid  x:Name="RightPanel"
+                       Grid.Column="2" Grid.Row="2"
+                       ItemsSource="{Binding FileTableListRight}"
+                       SelectionChanged="LeftPanel_SelectionChanged"
+                       GotFocus="RightPanel_GotFocus"
+                       >
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding ExercuteFileCommand}" CommandParameter="Right" />
+                    <MouseBinding Command="{Binding ExercuteFileCommand}" CommandParameter="Right" MouseAction="LeftDoubleClick"/>
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Extention}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Размер" Binding="{Binding Size}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat= dd.MM.yyyy HH:mm:ss}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--#endregion-->
+
+            <GridSplitter Grid.Column="1" Grid.RowSpan="3" ShowsPreview="False" Width="3"
+                    HorizontalAlignment="Center" VerticalAlignment="Stretch">                
+            </GridSplitter>
+
+            <StatusBar x:Name="StatusBarLeft" Grid.Row="3" Grid.Column="0" Height="20"></StatusBar>
+            
+            <StatusBar x:Name="StatusBarRight" Grid.Row="3" Grid.Column="2" Height="20"></StatusBar>
+            
+            <!--#region Bottom Buttons -->
+            <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" >
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderThickness" Value="0"></Setter>
+                        <Setter Property="Background" Value="{Binding ElementName=StatusBarLeft, Path=Background}"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding ViewCommand}" >
+                    F3 Просмотр
+                </Button>
+                <Button Grid.Column="1" Command="{Binding CreateFileCommand}">
+                    F4 Файл
+                </Button>
+                <Button Grid.Column="2" Command="{Binding CopyFileCommand}">
+                    F5 Копирование
+                </Button>
+                <Button Grid.Column="3" Command="{Binding MoveFileCommand}">
+                    F6 Перемещение
+                </Button>
+                <Button Grid.Column="4" Command="{Binding CreateDirrectoryCommand}">
+                    F7 Каталог
+                </Button>
+                <Button Grid.Column="5" Command="{Binding RemoveFileCommand}">
+                    F8 Удаление
+                </Button>
+                <Button Grid.Column="6" Command="{Binding CloseApplicationCommand}"
+                        >
+                    Alt+F4 Выход
+                </Button>
+            </Grid>
+            <!--#endregion-->
+        </Grid>
+    </DockPanel>
+</Window>
