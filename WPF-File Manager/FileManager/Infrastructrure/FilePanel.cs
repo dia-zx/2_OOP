@@ -104,7 +104,7 @@ namespace FileManager.Infrastructrure
         {
             if (ext == null || ext.Length < 1) return string.Empty;
             if (ext[0] != '.') return ext;
-            return ext.AsSpan().Slice(1).ToString();
+            return ext[1..];
         }
 
     }
