@@ -22,7 +22,7 @@
             get => _ActivePanel;
             set
             {
-                if ((value == FilePanelLeft) || (value == FilePanelRight))
+                if (value == FilePanelLeft || value == FilePanelRight)
                     _ActivePanel = value;
                 else
                     _ActivePanel = null;
